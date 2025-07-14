@@ -3,13 +3,26 @@ import numpy as np
 import pytest
 from pytest import approx
 
-matrix_vec = np.tile(np.arange(1,11),(2,1)).T
+matrix_vec = np.tile(np.arange(1,11),(3,1)).T
+matrix_vec[:,1] = 2*(matrix_vec[:,1] + 10)
+matrix_vec[:,2] = 3*(matrix_vec[:,1] + 20)
+
 single_vec = np.array([[[1,2,3,4,5,6,7,8,9,10]]])
 
 diffs_correct = np.repeat(2,7)
 
 correct_single = np.concatenate((diffs_correct, np.array([np.nan, np.nan, np.nan])),axis=0).T
-correct_matrix= np.tile(correct_single, (2, 1)).T
+correct_matrix = np.array([[ 2.,  4., 12.],
+       [ 2.,  4., 12.],
+       [ 2.,  4., 12.],
+       [ 2.,  4., 12.],
+       [ 2.,  4., 12.],
+       [ 2.,  4., 12.],
+       [ 2.,  4., 12.],
+       [np.nan, np.nan, np.nan],
+       [np.nan, np.nan, np.nan],
+       [np.nan, np.nan, np.nan]])
+
 
 def test_typical():
     assert line_length.line_length_transform(matrix_vec, sfx=1, llw=3) == approx(correct_matrix,nan_ok=True)
