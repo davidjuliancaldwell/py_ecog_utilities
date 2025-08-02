@@ -1,7 +1,7 @@
 import numpy as np
 import itertools
 
-def generate_bipolar_pair_list(ch_length=8,start_ch=1,distance=10):
+def generate_bipolar_pair_list(ch_length=8,start_ch=1,distance=10,prefix='',postfix=''):
     """
     Generate a list of all possible unique bipolar pairs from a list of channel names.
 
@@ -12,14 +12,18 @@ def generate_bipolar_pair_list(ch_length=8,start_ch=1,distance=10):
     start_ch : int
         Starting channel number (default is 1).
     distance : int
-        Distance between anode and cathode channels (default is 10). in mm 
+        Distance between anode and cathode channels (default is 10). in mm
+    prefix : str
+        Prefix to add to channel names (default is empty string).
+    postfix : str
+        Postfix to add to channel names (default is empty string).
 
     Returns
     -------
     anode_list : list of strings
-        list of anode channel names, represented as integers formatted as string
+        list of anode channel names, represented as integers +/- prefix/postfix formatted as string
     cathode_list : list of strings
-        list of cathode channel names, represented as integers formatted as string
+        list of cathode channel names, represented as integers +/- prefix/postfix formatted as string
     distance_list : array of int
         list of distances between anode and cathode channels, depends on distance parameter
     """
@@ -35,6 +39,14 @@ def generate_bipolar_pair_list(ch_length=8,start_ch=1,distance=10):
     anode_list = list(combinations_of_2[:, 0].astype(str))
     cathode_list = list(combinations_of_2[:, 1].astype(str))
     distance_list = [distance] * np.abs(combinations_of_2[:,0] - combinations_of_2[:,1])
+
+    # if prefix or postfix is provided, add it to the channel names
+    if prefix:
+        anode_list = [f'{prefix}{anode}' for anode in anode_list]
+        cathode_list = [f'{prefix}{cathode}' for cathode in cathode_list]
+    if postfix:
+        anode_list = [f'{anode}{postfix}' for anode in anode_list]
+        cathode_list = [f'{cathode}{postfix}' for cathode in cathode_list]
 
     return cathode_list, anode_list, distance_list
 

@@ -3,7 +3,12 @@ __pycache__/
 *.py[codz]
 *$py.class
 *.xlsx
-
+*.mat
+*.csv
+*.h5
+*.doc
+*.DS_store
+*.vscode
 
 # C extensions
 *.so

@@ -1,6 +1,6 @@
 from setuptools import find_packages, setup
 
 setup(
-    name='src',
+    name='py_ecog_utils',
     packages=find_packages(),
 )
