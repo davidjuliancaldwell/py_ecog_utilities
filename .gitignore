@@ -7,8 +7,9 @@ __pycache__/
 *.csv
 *.h5
 *.doc
-*.DS_store
+*.DS_Store
 *.vscode
+*/data/.DS_Store
 
 # C extensions
 *.so
